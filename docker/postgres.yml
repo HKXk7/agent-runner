@@ -1,0 +1,18 @@
+# 可选升级路径：Postgres（多 worker + SKIP LOCKED）
+# MVP 用 SQLite WAL 零配置；当需要多 worker 水平扩展时切换到此，
+# 把 queue/lease.ts 的 acquire 换成 `SELECT ... FOR UPDATE SKIP LOCKED`。
+# 队列读写经 jobs-repo / lease 抽象隔离，DB 切换不改业务层。
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: agent
+      POSTGRES_PASSWORD: agent
+      POSTGRES_DB: agent_runner
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

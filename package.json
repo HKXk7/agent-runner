@@ -1,0 +1,20 @@
+{
+  "name": "agent-runner",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Agent Job Runner + Console - DB-backed long-running agent task engine with lease/retry/cancel, idempotent steps, cost circuit breaker, human approval nodes and append-only audit stream",
+  "workspaces": [
+    "shared",
+    "server",
+    "web"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w server",
+    "dev:web": "npm run dev -w web",
+    "db:migrate": "npm run db:migrate -w server",
+    "enqueue": "npm run enqueue -w server",
+    "smoke": "npm run smoke -w server",
+    "build:web": "npm run build -w web",
+    "start": "npm run start -w server"
+  }
+}
